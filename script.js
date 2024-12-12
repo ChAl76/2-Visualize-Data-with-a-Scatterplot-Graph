@@ -47,5 +47,33 @@ fetch(url)
       d3.extent(data, (d) => d.Year).map((v, i) => (i === 0 ? v - 1 : v + 1))
     );
     y.domain(d3.extent(data, (d) => d.Time));
+
+    // Add Axes
+    svg
+      .append('g')
+      .attr('id', 'x-axis')
+      .attr('transform', `translate(0,${height})`)
+      .call(xAxis);
+
+    svg.append('g').attr('id', 'y-axis').call(yAxis);
+
+    // Add Title
+    svg
+      .append('text')
+      .attr('id', 'title')
+      .attr('x', width / 2)
+      .attr('y', -margin.top / 2)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '26px')
+      .text('Doping in Professional Bicycle Racing');
+
+    // Add Subtitle
+    svg
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', -margin.top / 2 + 25)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '18px')
+      .text("35 Fastest times up Alpe d'Huez");
   })
   .catch(console.error);
