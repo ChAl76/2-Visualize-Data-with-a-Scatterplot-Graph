@@ -30,3 +30,16 @@ const svg = d3
   .attr('class', 'graph')
   .append('g')
   .attr('transform', `translate(${margin.left},${margin.top})`);
+
+// Fetch and Process Data
+fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    // Parse data
+    data.forEach((d) => {
+      d.Place = Number(d.Place);
+      const [minutes, seconds] = d.Time.split(':').map(Number);
+      d.Time = new Date(1970, 0, 1, 0, minutes, seconds);
+    });
+  })
+  .catch(console.error);
