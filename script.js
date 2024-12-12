@@ -106,5 +106,38 @@ fetch(url)
           .style('top', `${event.pageY - 75}px`);
       })
       .on('mouseout', () => tooltip.style('opacity', 0));
+
+    // Add Legend
+    const legendData = [
+      { label: 'Riders with doping allegations', color: '#ff6969' },
+      { label: 'No doping allegations', color: '#3fd33f' },
+    ];
+
+    const legend = svg
+      .append('g')
+      .attr('id', 'legend')
+      .attr('transform', `translate(${width - 10}, ${height / 2})`)
+      .selectAll('g')
+      .data(legendData)
+      .enter()
+      .append('g')
+      .attr('class', 'legend-label')
+      .attr('transform', (d, i) => `translate(0,${-i * 20})`);
+
+    legend
+      .append('circle')
+      .attr('r', 7)
+      .style('fill', (d) => d.color)
+      .style('opacity', 0.9)
+      .attr('stroke', 'black')
+      .attr('stroke-width', 0.5);
+
+    legend
+      .append('text')
+      .attr('x', -14)
+      .attr('y', 0)
+      .attr('dy', '.35em')
+      .style('text-anchor', 'end')
+      .text((d) => d.label);
   })
   .catch(console.error);
