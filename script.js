@@ -75,5 +75,36 @@ fetch(url)
       .attr('text-anchor', 'middle')
       .style('font-size', '18px')
       .text("35 Fastest times up Alpe d'Huez");
+
+    // Add Data Points
+    const dotSelection = svg
+      .selectAll('.dot')
+      .data(data)
+      .join('circle')
+      .attr('class', 'dot')
+      .attr('r', 6)
+      .attr('cx', (d) => x(d.Year))
+      .attr('cy', (d) => y(d.Time))
+      .attr('data-xvalue', (d) => d.Year)
+      .attr('data-yvalue', (d) => d.Time.toISOString())
+      .style('fill', (d) => (d.Doping !== '' ? '#ff6969' : '#3fd33f'))
+      .style('opacity', 0.9)
+      .attr('stroke', '#000')
+      .attr('stroke-width', 0.5);
+
+    dotSelection
+      .on('mouseover', (event, d) => {
+        tooltip
+          .style('opacity', 0.9)
+          .attr('data-year', d.Year)
+          .html(
+            `${d.Name}: ${d.Nationality}<br>Year: ${d.Year}, Time: ${timeFormat(
+              d.Time
+            )}<br>${d.Doping || ''}`
+          )
+          .style('left', `${event.pageX}px`)
+          .style('top', `${event.pageY - 75}px`);
+      })
+      .on('mouseout', () => tooltip.style('opacity', 0));
   })
   .catch(console.error);
