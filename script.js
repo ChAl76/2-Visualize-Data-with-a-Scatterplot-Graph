@@ -41,5 +41,11 @@ fetch(url)
       const [minutes, seconds] = d.Time.split(':').map(Number);
       d.Time = new Date(1970, 0, 1, 0, minutes, seconds);
     });
+
+    // Set domains
+    x.domain(
+      d3.extent(data, (d) => d.Year).map((v, i) => (i === 0 ? v - 1 : v + 1))
+    );
+    y.domain(d3.extent(data, (d) => d.Time));
   })
   .catch(console.error);
