@@ -9,4 +9,14 @@ body {
   height: 100%;
   box-sizing: border-box;
   background-color: #6a9189;
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.graph {
+  display: block;
+  margin: auto;
+  background-color: #f5fefa;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
